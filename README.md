@@ -14,15 +14,35 @@ gem 'mutual_funds'
 
 And then execute:
 
-    $ bundle install
+```bash
+bundle install
+```
 
 Or install it yourself as:
 
-    $ gem install mutual_funds
+```bash
+gem install mutual_funds
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+```bash
+docker run --volume "$PWD:/app" --user $UID:$UID -it jade:ruby-app-3.2-bullseye /bin/bash
+bundle install
+# or
+docker run --volume "$PWD:/app" -it ruby:3.1-bullseye /bin/bash
+cd app
+bundle install
+```
+
+```ruby
+irb -Ilib
+require "mutual_funds"
+# funds = ["GOC1304", "MFC4151", "RBF610", "RBF5110", "TDB162"]
+funds = ["GOC1304", "MFC4666", "RBF610", "RBF5110", "TDB3081"]
+funds.map { |fund| "#{fund}: #{MutualFunds.get_one_fund(fund)}" }
+
+```
 
 ## Development
 

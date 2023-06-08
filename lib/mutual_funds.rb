@@ -10,11 +10,13 @@ module MutualFunds
 
   class << self
     def get_one_fund(fund)
-      query = "https://quotes.morningstar.com/fund/c-header?t=#{fund}"
+      query = "https://marketsandresearch.td.com/tdwca/Public/MutualFundsProfile/Summary/ca/#{fund}?addRecent=true"
       response = HTTParty.get(query)
-      response.force_encoding("UTF-8")
+      puts response.body and return if response.code != 200
+      # response.force_encoding("UTF-8")
       doc = Nokogiri.HTML5(response)
-      doc.xpath("//span[@vkey='NAV']").text.strip
+      # doc.xpath("//span[@vkey='NAV']").text.strip
+      doc.xpath("//span[text()='NAV']/following-sibling::div/span").text
     end
   end
 end
